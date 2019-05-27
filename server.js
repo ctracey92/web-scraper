@@ -24,39 +24,49 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/scrapedArticles", { useNewUrlParser: true });
 
 //Routes
 
-//Route to scrap for articles:
 app.get("/scrape",function(req,res){
-    axios.get("ic.wizards.com/en/articles/archive").then(function(response){
-        let $ = cheerio.load(response.data);
+    axios.get("https://magic.wizards.com/en/articles/archive").then(function(response) {
+    var $ = cheerio.load(response.data);
+  
+    console.log("working");
+  
+    $(".article-item-extended").each(function(i, element) {
 
-        $("article-item-extend").each(function(i,element){
-            let result = {};
-            result.headline = $(this)
-            .children("title")
-            .text();
-            result.link = $(this)
-            .children("a")
-            .attr("href");
-            result.summary = $(this)
-            .children("description")
-            .text();
-            
-            db.Article.create(result)
-                .then(function(dbArticle){
-                    console.log(dbArticle);
-                })
-                .catch(function(err){
-                    console.log(err);
-                });
-        });
-        res.send("Scrape Complete");
-    });   
+        let result = {};
+
+        //       // Add the text and href of every link, and save them as properties of the result object
+      result.heading = $(element).find("h3").text();
+      
+      result.link = $(element).find("a").attr("href");
+
+      result.summary = $(element).find(".description").text();
+  
+  
+      db.Article.create(result)
+              .then(function(dbArticle) {
+                // View the added result in the console
+                console.log(dbArticle);
+              })
+              .catch(function(err) {
+                // If an error occurred, log it
+                console.log(err);
+              });
+          });
+  });
+  res.send("Scrape Complete")
 });
 
+//Route to grab all the data from the DB.
+app.get("/data",function(req,res){
+    db.Article.find({},function(err,data){
+      if(err){console.log(err)}
+      else{res.json(data)}
+    })
+  })
 
 // Start the server
 app.listen(PORT, function() {
