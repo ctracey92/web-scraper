@@ -48,6 +48,7 @@ app.get("/scrape",function(req,res){
       result.link = "https://magic.wizards.com" + $(element).find("a").attr("href");
 
       result.summary = $(element).find(".description").text();
+
         db.Article.create(result)
                     .then(function(dbArticle) {
                         // View the added result in the console
