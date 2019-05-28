@@ -63,36 +63,32 @@ app.get("/scrape",function(req,res){
         
         });
   });
-//   axios.get("https://dnd.wizards.com/articles").then(function(response) {
-//     var $ = cheerio.load(response.data);
+  axios.get("https://dnd.wizards.com/articles").then(function(response) {
+    var $ = cheerio.load(response.data);
 
-//     $(".article-preview").each(function(i, element) {
+    $(".article-preview").each(function(i, element) {
 
-//         let result = {};
+        let result = {};
 
-//         //       // Add the text and href of every link, and save them as properties of the result object
-//       result.title = $(element).find("h4").text();
+        //       // Add the text and href of every link, and save them as properties of the result object
+      result.title = $(element).find("h4").text();
       
-//       result.link = $(element).find("a").attr("href");
+      result.link = $(element).find("a").attr("href");
 
-//       result.summary = $(element).find(".summary").text();
+      result.summary = $(element).find(".summary").text();
 
-//       db.Article.on('index', function(err) { // <-- Wait for model's indexes to finish
-//         assert.ifError(err);
-//         db.Article.create(result)
-//                     .then(function(dbArticle) {
-//                         // View the added result in the console
-//                         console.log(dbArticle);
-//                     })
-//                     .catch(function(err) {
-//                         // If an error occurred, log it
-//                         console.log(err);
-//                     });
-//                 });
-        
-//         });
-      
-//   });
+
+        db.Article.create(result)
+                    .then(function(dbArticle) {
+                        // View the added result in the console
+                        console.log(dbArticle);
+                    })
+                    .catch(function(err) {
+                        // If an error occurred, log it
+                        console.log(err);
+                    });
+                });
+  });
   res.send("Scrape Complete")
 });
 

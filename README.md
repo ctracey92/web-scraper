@@ -71,11 +71,6 @@ mongoose.connect(MONGODB_URI);
 
 * Go back to Saturday's activities if you need a refresher on how to partner one model with another.
 
-* Whenever you scrape a site for stories, make sure an article isn't already represented in your database before saving it; Do not save any duplicate entries.
-
-* Don't just clear out your database and populate it with scraped articles whenever a user accesses your site.
-
-  * If your app deletes stories every time someone visits, your users won't be able to see any comments except the ones that they post.
 
 ### Helpful Links
 
