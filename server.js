@@ -36,58 +36,63 @@ app.set("view engine", "handlebars");
 app.get("/scrape",function(req,res){
     axios.get("https://magic.wizards.com/en/articles/archive").then(function(response) {
     var $ = cheerio.load(response.data);
+
+
+    //Running the code below in your shell creates an index that allows for the unique:true to work.
+    // db.Article.createIndex({"title":1},{unique:true});
   
     console.log("working");
   
     $(".article-item-extended").each(function(i, element) {
 
         let result = {};
-
-        //       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(element).find("h3").text();
       
       result.link = $(element).find("a").attr("href");
 
       result.summary = $(element).find(".description").text();
-  
-  
-      db.Article.create(result)
-              .then(function(dbArticle) {
-                // View the added result in the console
-                console.log(dbArticle);
-              })
-              .catch(function(err) {
-                // If an error occurred, log it
-                console.log(err);
-              });
-          });
+        db.Article.create(result)
+                    .then(function(dbArticle) {
+                        // View the added result in the console
+                        console.log(dbArticle);
+                    })
+                    .catch(function(err) {
+                        // If an error occurred, log it
+                        console.log(err);
+                    });
+        
+        });
   });
-  axios.get("https://dnd.wizards.com/articles").then(function(response) {
-    var $ = cheerio.load(response.data);
+//   axios.get("https://dnd.wizards.com/articles").then(function(response) {
+//     var $ = cheerio.load(response.data);
 
-    $(".article-preview").each(function(i, element) {
+//     $(".article-preview").each(function(i, element) {
 
-        let result = {};
+//         let result = {};
 
-        //       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(element).find("h4").text();
+//         //       // Add the text and href of every link, and save them as properties of the result object
+//       result.title = $(element).find("h4").text();
       
-      result.link = $(element).find("a").attr("href");
+//       result.link = $(element).find("a").attr("href");
 
-      result.summary = $(element).find(".summary").text();
-  
-  
-      db.Article.create(result)
-              .then(function(dbArticle) {
-                // View the added result in the console
-                console.log(dbArticle);
-              })
-              .catch(function(err) {
-                // If an error occurred, log it
-                console.log(err);
-              });
-          });
-  });
+//       result.summary = $(element).find(".summary").text();
+
+//       db.Article.on('index', function(err) { // <-- Wait for model's indexes to finish
+//         assert.ifError(err);
+//         db.Article.create(result)
+//                     .then(function(dbArticle) {
+//                         // View the added result in the console
+//                         console.log(dbArticle);
+//                     })
+//                     .catch(function(err) {
+//                         // If an error occurred, log it
+//                         console.log(err);
+//                     });
+//                 });
+        
+//         });
+      
+//   });
   res.send("Scrape Complete")
 });
 
