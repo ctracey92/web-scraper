@@ -4,6 +4,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const axios = require("axios");
 const cheerio = require("cheerio");
+const exphbs = require("express-handlebars");
 
 //Require all of the models
 const db = require("./models");
@@ -26,6 +27,10 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/scrapedArticles", { useNewUrlParser: true });
 
+// Set Handlebars as the default templating engine.
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 //Routes
 
 app.get("/scrape",function(req,res){
@@ -39,7 +44,7 @@ app.get("/scrape",function(req,res){
         let result = {};
 
         //       // Add the text and href of every link, and save them as properties of the result object
-      result.heading = $(element).find("h3").text();
+      result.title = $(element).find("h3").text();
       
       result.link = $(element).find("a").attr("href");
 
@@ -63,8 +68,9 @@ app.get("/scrape",function(req,res){
 //Route to grab all the data from the DB.
 app.get("/data",function(req,res){
     db.Article.find({},function(err,data){
+        console.log(data)
       if(err){console.log(err)}
-      else{res.json(data)}
+      else{res.render("articles",{"articles":data})}
     })
   })
 
