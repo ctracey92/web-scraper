@@ -37,18 +37,15 @@ app.get("/scrape",function(req,res){
     axios.get("https://magic.wizards.com/en/articles/archive").then(function(response) {
     var $ = cheerio.load(response.data);
 
-
     //Running the code below in your shell creates an index that allows for the unique:true to work.
     // db.Article.createIndex({"title":1},{unique:true});
-  
-    console.log("working");
   
     $(".article-item-extended").each(function(i, element) {
 
         let result = {};
       result.title = $(element).find("h3").text();
       
-      result.link = $(element).find("a").attr("href");
+      result.link = "https://magic.wizards.com" + $(element).find("a").attr("href");
 
       result.summary = $(element).find(".description").text();
         db.Article.create(result)
@@ -68,12 +65,11 @@ app.get("/scrape",function(req,res){
 
     $(".article-preview").each(function(i, element) {
 
-        let result = {};
+      let result = {};
 
-        //       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(element).find("h4").text();
       
-      result.link = $(element).find("a").attr("href");
+      result.link = "https://dnd.wizards.com/articles" +  $(element).find("a").attr("href");
 
       result.summary = $(element).find(".summary").text();
 
