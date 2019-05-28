@@ -10,7 +10,8 @@
         {{#each articles}}
         <h4>{{title}}</h4>
         <p>{{summary}}</p>
-        <a href="{{link}}" target="_blank">Link to article</a>
+        <a href="{{link}}" target="_blank" class="btn btn-primary">Link to article</a>
+        <button type="button" data-id="{{_id}}" class="btn btn-danger comment" >Comment!</button>
         <p>---------------</p>
         {{/each}}
     </div>
