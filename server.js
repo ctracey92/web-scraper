@@ -62,6 +62,32 @@ app.get("/scrape",function(req,res){
               });
           });
   });
+  axios.get("https://dnd.wizards.com/articles").then(function(response) {
+    var $ = cheerio.load(response.data);
+
+    $(".article-preview").each(function(i, element) {
+
+        let result = {};
+
+        //       // Add the text and href of every link, and save them as properties of the result object
+      result.title = $(element).find("h4").text();
+      
+      result.link = $(element).find("a").attr("href");
+
+      result.summary = $(element).find(".summary").text();
+  
+  
+      db.Article.create(result)
+              .then(function(dbArticle) {
+                // View the added result in the console
+                console.log(dbArticle);
+              })
+              .catch(function(err) {
+                // If an error occurred, log it
+                console.log(err);
+              });
+          });
+  });
   res.send("Scrape Complete")
 });
 
