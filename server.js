@@ -99,7 +99,8 @@ app.get("/data",function(req,res){
 });
 
 app.get("/articles/:id", function(req, res) {
-    db.Article.findById(req.params.id).populate("notes").exec(function(err,data){
+    db.Article.findById(req.params.id).populate("comments").exec(function(err,data){
+        console.log(data,"*****")
       if(err){res.json(err)}
       res.render("comments",{"articles":data})
     })
@@ -107,10 +108,9 @@ app.get("/articles/:id", function(req, res) {
 
 
 app.post("/notes/:id", function(req, res) {
-    db.Note.create(req.body)
+    db.Comment.create(req.body)
       .then(function(data){
-        return db.Article.findOne({_id: req.params.id})
-        .populate("note")
+        return db.Article.findOneAndUpdate({_id: req.params.id},{ $push: { comments: data._id } }, { new: true })
       })
       .then(function(dbArticle){
         res.json(dbArticle)

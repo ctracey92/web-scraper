@@ -23,6 +23,12 @@ const ArticleSchema = new Schema({
     require: true,
     unique: true
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 // This creates our model from the above schema, using mongoose's model method

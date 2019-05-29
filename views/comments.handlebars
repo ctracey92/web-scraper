@@ -11,7 +11,10 @@
             <div class="comments-section">
                 <h5 id="grabbedArticle" data-id="{{articles._id}}">Article:{{articles.title}}</h5>
                 <div class="comments overflow-auto">
-
+                    {{#each articles.comments}}
+                    <p>{{body}}</p>
+                    <p>~~~~~~~~~~~~</p>
+                    {{/each}}
                 </div>
                 <form>
                     <div class="form-group">
