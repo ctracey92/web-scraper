@@ -5,15 +5,18 @@ const Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new NoteSchema object
 // This is similar to a Sequelize model
-const NoteSchema = new Schema({
-  // `title` is of type String
-  title: String,
+const CommentSchema = new Schema({
   // `body` is of type String
-  body: String
+  body: String,
+
+  article: {
+    type: Schema.Types.ObjectId,
+    ref: "Article"
+  }
 });
 
 // This creates our model from the above schema, using mongoose's model method
-const Note = mongoose.model("Note", NoteSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 
-// Export the Note model
-module.exports = Note;
+// Export the Comment model
+module.exports = Comment;

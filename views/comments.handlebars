@@ -7,7 +7,22 @@
         </div>
     </div>
     <div class="container overflow-auto">
-       
+        <div class="col-9">
+            <div class="comments-section">
+                <h5 id="grabbedArticle" data-id="{{articles._id}}">Article:{{articles.title}}</h5>
+                <div class="comments overflow-auto">
+
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="commentBox"></label>
+                        <textarea class="form-control" id="commentBox" rows="2"></textarea>
+                        <button type="submit" class="btn btn-primary" id="submitComment">Submit</button>
+                    </div>
+                </form>
+
+            </div>  
+        </div>
     </div>
    
 </div>

@@ -96,7 +96,29 @@ app.get("/data",function(req,res){
       if(err){console.log(err)}
       else{res.render("articles",{"articles":data})}
     })
-  })
+});
+
+app.get("/articles/:id", function(req, res) {
+    db.Article.findById(req.params.id).populate("notes").exec(function(err,data){
+      if(err){res.json(err)}
+      res.render("comments",{"articles":data})
+    })
+});
+
+
+app.post("/notes/:id", function(req, res) {
+    db.Note.create(req.body)
+      .then(function(data){
+        return db.Article.findOne({_id: req.params.id})
+        .populate("note")
+      })
+      .then(function(dbArticle){
+        res.json(dbArticle)
+      })
+      .catch(function(err){
+        res.json(err)
+      })
+  });
 
 // Start the server
 app.listen(PORT, function() {
