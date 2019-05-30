@@ -1,24 +1,20 @@
-let reload = function(){
-
-    $(document).ajaxStop(function(){window.location.reload(true); });
-    // window.location.reload(true);
-}
 let callScraper =  function (){
     $.ajax({
         method: "GET",
-        url: "/scrape",
+        url: "/",
         success: function(){
-        // $(document).ajaxStop(function(){window.location.reload(true); });
-        // reload();
+          document.location.reload(true)
+  
         }
       }).then(function() {
-        // reload();
+        document.location.reload(true);
       });
 }
 
 $(document).on("click", ".scrape", function() {
     // Now make an ajax call for the Article
-    callScraper();   
+    callScraper();
+    
 });
 
 
@@ -48,4 +44,15 @@ $(document).on("click", "#submitComment",function(){
   $("#commentBox").val("");
 });
 
+$(document).on("click",".deleteBtn",function(){
+  let id = $(this).attr("data-id")
+  $.ajax({
+    method: "DELETE",
+    url: "/notes/" + id,
+  })
+  .then(function(data){
+    console.log(data,"Comment Deleted")
+    document.location.reload(true)
+  })
+})
 

@@ -7,7 +7,12 @@
                 <div class="comments overflow-auto border border-primary">
                     <ul class="list-group">
                         {{#each articles.comments}}
-                            <li class="list-group-item list-group-item-light">{{body}}</li>
+                            <li class="list-group-item list-group-item-light">
+                                {{body}}
+                                {{!-- <button type="button" class="btn btn-dark float-right deleteBtn" data-id="{{_id}}">Delete</button> --}}
+                                <button type="submit" class="btn btn-dark float-right deleteBtn" data-id="{{_id}}">Delete</button>
+                            </li>
+                            
                         {{/each}}
                     </ul>
 

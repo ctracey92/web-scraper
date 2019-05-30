@@ -67,7 +67,7 @@ app.get("/scrape",function(req,res){
 });
 
 //Route to grab all the data from the DB.
-app.get("/data",function(req,res){
+app.get("/",function(req,res){
     db.Article.find({},function(err,data){
         console.log(data)
       if(err){console.log(err)}
@@ -95,6 +95,13 @@ app.post("/notes/:id", function(req, res) {
       .catch(function(err){
         res.json(err)
       })
+  });
+
+  app.delete("/notes/:id", function(req, res) {
+     db.Comment.deleteOne({_id: req.params.id})
+     .then(function(err,data){
+         if (err) {res.json(err)};
+     })
   });
 
 // Start the server
