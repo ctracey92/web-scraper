@@ -27,7 +27,9 @@ max-height: 450px;
 
 .itemRow{
     background-color: #fdfdfe;
+    background-color: #e9ecef;
+    opacity: .90;
     padding-top: 5px;
     padding-bottom: 5px;
-    color: #a9a09f;
+    color: #918988;
 }
