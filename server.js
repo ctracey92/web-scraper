@@ -29,7 +29,7 @@ app.use(express.static("public"));
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapedArticles";
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Set Handlebars as the default templating engine.
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
