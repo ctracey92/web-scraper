@@ -10,11 +10,11 @@
         </div>
         <div class="container overflow-auto articles">
             {{#each articles}}
-            <div class="row">
+            <div class="row itemRow">
                 <div class="col-4">
                     <img src="{{photo}}">
                     <a href="{{link}}" target="_blank" class="btn btn-primary">Link to article</a>
-                     <a href="/articles/{{_id}}" class="btn btn-danger">Comment Here!</a>  
+                     <a href="/articles/{{_id}}" class="btn btn-primary">Comment Here!</a>  
                 </div>
                 <div class="col-8">
                     <h4>{{title}}</h4>
@@ -22,10 +22,7 @@
                 </div>    
           
             </div>
-
-
-
-            <p>---------------</p>
+            <br>
             {{/each}}
         </div>
     

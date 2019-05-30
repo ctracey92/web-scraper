@@ -1,31 +1,27 @@
 <div class="main-content">
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Web Scraper</h1>
-            <p class="lead">Click to scrape!</p>
-            <a href="/data" class="btn btn-primary">Back to articles</a>
-        </div>
-    </div>
-    <div class="container overflow-auto">
+    <div class="container">
         <div class="col-9">
-            <div class="comments-section">
-                <h5 id="grabbedArticle" data-id="{{articles._id}}">Article:{{articles.title}}</h5>
-                <div class="comments overflow-auto">
-                    {{#each articles.comments}}
-                    <p>{{body}}</p>
-                    <p>~~~~~~~~~~~~</p>
-                    {{/each}}
+            <h5 class="list-group-item list-group-item-light" id="grabbedArticle" data-id="{{articles._id}}">Commenting On: {{articles.title}}</h5>
+            <br>
+            <div class="overflow-auto comments-section">
+                <div class="comments overflow-auto border border-primary">
+                    <ul class="list-group">
+                        {{#each articles.comments}}
+                            <li class="list-group-item list-group-item-light">{{body}}</li>
+                        {{/each}}
+                    </ul>
+
                 </div>
+            </div>
                 <form>
                     <div class="form-group">
                         <label for="commentBox"></label>
                         <textarea class="form-control" id="commentBox" rows="2"></textarea>
                         <button type="submit" class="btn btn-primary" id="submitComment">Submit</button>
                     </div>
-                </form>
-
-            </div>  
+                </form>  
+                <a href="/data" class="btn btn-primary">Back to articles</a>
         </div>
+
     </div>
-   
 </div>
