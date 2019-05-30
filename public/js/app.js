@@ -1,7 +1,7 @@
 let callScraper =  function (){
     $.ajax({
         method: "GET",
-        url: "/",
+        url: "/scrape",
         success: function(){
           document.location.reload(true)
   
