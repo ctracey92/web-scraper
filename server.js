@@ -24,8 +24,12 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scrapedArticles", { useNewUrlParser: true });
+// // Connect to the Mongo DB
+// mongoose.connect("mongodb://localhost/scrapedArticles", { useNewUrlParser: true });
+
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapedArticles";
+
+mongoose.connect(MONGODB_URI);
 
 // Set Handlebars as the default templating engine.
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
