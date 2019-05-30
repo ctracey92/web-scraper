@@ -34,20 +34,22 @@ app.set("view engine", "handlebars");
 //Routes
 
 app.get("/scrape",function(req,res){
-    axios.get("https://magic.wizards.com/en/articles/archive").then(function(response) {
+  axios.get("https://news.un.org/en/news").then(function(response) {
     var $ = cheerio.load(response.data);
 
     //Running the code below in your shell creates an index that allows for the unique:true to work.
     // db.Article.createIndex({"title":1},{unique:true});
   
-    $(".article-item-extended").each(function(i, element) {
+    $(".views-row").each(function(i, element) {
 
         let result = {};
-      result.title = $(element).find("h3").text();
+      result.title = $(element).find(".story-title").text();
       
-      result.link = "https://magic.wizards.com" + $(element).find("a").attr("href");
+      result.link = "https://news.un.org/en/news" + $(element).find("a").attr("href");
 
-      result.summary = $(element).find(".description").text();
+      result.summary = $(element).find(".news-body").text();
+
+      result.photo = $(element).find("img").attr("src")
 
         db.Article.create(result)
                     .then(function(dbArticle) {
@@ -60,31 +62,6 @@ app.get("/scrape",function(req,res){
                     });
         
         });
-  });
-  axios.get("https://dnd.wizards.com/articles").then(function(response) {
-    var $ = cheerio.load(response.data);
-
-    $(".article-preview").each(function(i, element) {
-
-      let result = {};
-
-      result.title = $(element).find("h4").text();
-      
-      result.link = "https://dnd.wizards.com/articles" +  $(element).find("a").attr("href");
-
-      result.summary = $(element).find(".summary").text();
-
-
-        db.Article.create(result)
-                    .then(function(dbArticle) {
-                        // View the added result in the console
-                        console.log(dbArticle);
-                    })
-                    .catch(function(err) {
-                        // If an error occurred, log it
-                        console.log(err);
-                    });
-                });
   });
   res.send("Scrape Complete")
 });

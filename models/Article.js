@@ -23,6 +23,9 @@ const ArticleSchema = new Schema({
     require: true,
     unique: true
   },
+  photo: {
+    type: String,
+  },
   comments: [
     {
       type: Schema.Types.ObjectId,

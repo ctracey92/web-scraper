@@ -18,9 +18,7 @@ let callScraper =  function (){
 
 $(document).on("click", ".scrape", function() {
     // Now make an ajax call for the Article
-    callScraper();
-    reload();
-   
+    callScraper();   
 });
 
 

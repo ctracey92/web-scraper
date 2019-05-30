@@ -2,3 +2,20 @@
     max-height: 300px;
 }
 
+.jumbotron {
+   opacity: .8;
+
+}
+
+img {
+    max-width: 262px;
+    /* float: left; */
+}
+
+.btn {
+    margin-top: 5px;
+}
+
+body {
+    background-image: url(../assets/0.jpg);
+}
