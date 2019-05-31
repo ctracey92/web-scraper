@@ -59,15 +59,24 @@ app.get("/scrape",function(req,res){
                     .then(function(dbArticle) {
                         // View the added result in the console
                         console.log(dbArticle);
+                
                     })
+                    // .then(function(){
+                    //   db.Article.find({},function(err,data){
+                    //     console.log(data)
+                    //   if(err){console.log(err)}
+                    //   else{res.render("articles",{"articles":data})}
+                    // })
+                    // })
                     .catch(function(err) {
                         // If an error occurred, log it
                         console.log(err);
                     });
         
         });
+        
   });
-  res.send("Scrape Complete")
+  
 });
 
 //Route to grab all the data from the DB.

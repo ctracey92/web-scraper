@@ -3,10 +3,11 @@ let callScraper =  function (){
         method: "GET",
         url: "/scrape",
         success: function(){
-          document.location.reload(true)
+          console.log("Success*****")
   
         }
       }).then(function() {
+        console.log("****************************************************")
         document.location.reload(true);
       });
 }

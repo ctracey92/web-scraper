@@ -1,24 +1,28 @@
 # web-scraper
 
-3. **NOTE**: If you want to earn complete credit for your work, you must use all five of these packages in your assignment.
+Student Contributors
+@ctracey92
 
-4. In order to deploy your project to Heroku, you must set up an mLab provision. mLab is remote MongoDB database that Heroku supports natively. Follow these steps to get it running:
+* Technology
+    Javascript, Node, Monogo, Jquery, Mongoose, Bootstrap, Ajax, Axios, Cheerio, Handlebars
 
-5. Create a Heroku app in your project directory.
+* About 
+    A web scraper that grabs articles and displays them to the page, it allows users to comment on the articles. 
 
-6. Run this command in your Terminal/Bash window:
+* Objective 
+    - To create a functioning node app that uses a mongo database.
+    - Demonstrate the mastery of the Cheerio/Mongoose.
 
-* `heroku addons:create mongolab`
+* Approach 
+    - The challenge was getting the routes to synch with the Handlebars
+    - I started off by working to get the routes working and displaying as JSON
+    - Next I scoured through the docs to get the syntax correct for the Handlebars/Mongoose to work correctly
+    - Still working on getting the page to refresh appropriately
 
-* This command will add the free mLab provision to your project.
+* Contributing Guidelines
+All contributions and suggestions are welcome! For direct contributions, please fork the repository and file a pull request.
 
-7. When you go to connect your mongo database to mongoose, do so the following way:
-
-```js
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
-mongoose.connect(MONGODB_URI);
-```
-
-* This code should connect mongoose to your remote mongolab database if deployed, but otherwise will connect to the local mongoHeadlines database on your computer.
+## Contact Developer/Full-stack Web Software Developer
+* Homepage: https://github.com/ctracey92/
+* e-mail: cody.tracey92@gmail.com
+* LinkedIn: https://www.linkedin.com/in/cody-tracey-353432179
