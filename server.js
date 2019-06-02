@@ -40,13 +40,15 @@ app.set("view engine", "handlebars");
 app.get("/scrape",function(req,res){
   axios.get("https://news.un.org/en/news").then(function(response) {
     var $ = cheerio.load(response.data);
+    let promises = [];
 
     //Running the code below in your shell creates an index that allows for the unique:true to work.
     // db.Article.createIndex({"title":1},{unique:true});
   
     $(".views-row").each(function(i, element) {
+      
 
-        let result = {};
+      let result = {};
       result.title = $(element).find(".story-title").text();
       
       result.link = "https://news.un.org/en/news" + $(element).find("a").attr("href");
@@ -55,28 +57,12 @@ app.get("/scrape",function(req,res){
 
       result.photo = $(element).find("img").attr("src")
 
-        db.Article.create(result)
-                    .then(function(dbArticle) {
-                        // View the added result in the console
-                        console.log(dbArticle);
-                
-                    })
-                    // .then(function(){
-                    //   db.Article.find({},function(err,data){
-                    //     console.log(data)
-                    //   if(err){console.log(err)}
-                    //   else{res.render("articles",{"articles":data})}
-                    // })
-                    // })
-                    .catch(function(err) {
-                        // If an error occurred, log it
-                        console.log(err);
-                    });
-        
-        });
-        
-  });
-  
+      if(!result.title){return}
+
+      promises.push(db.Article.create(result))
+    })   
+    Promise.all(promises).then(() => res.end())   
+  })
 });
 
 //Route to grab all the data from the DB.

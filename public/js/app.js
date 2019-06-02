@@ -2,19 +2,22 @@ let callScraper =  function (){
     $.ajax({
         method: "GET",
         url: "/scrape",
-        success: function(){
-          console.log("Success*****")
-  
-        }
       }).then(function() {
+
         console.log("****************************************************")
-        document.location.reload(true);
+         window.location.reload(true)
       });
+}
+
+let refresher = function(){
+
+  window.location.reload(true)
 }
 
 $(document).on("click", ".scrape", function() {
     // Now make an ajax call for the Article
     callScraper();
+    // refresher();
     
 });
 
